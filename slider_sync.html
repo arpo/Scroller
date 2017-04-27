@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
+	<title>Slide</title>
+	<style>
+		body{
+			font-family:sans-serif;
+			margin: 10px;
+		}
+
+		#mySlider {
+			width: 50%;
+			margin-left: 50px;
+		}
+
+		#mySlider2 {
+			width: 80%;
+			margin-left: 20px;
+			margin-top: 50px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="mySlider"></div>
+	<div id="mySlider2"></div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="https://cdn.rawgit.com/arpo/trace.js/master/trace.min.js"></script>
+	<script type="text/javascript" src="assets/libs/Drag/Drag.js"></script>
+	<script type="text/javascript" src="assets/libs/Drag/Slider.js"></script>
+	<script type="text/javascript">
+		var mySlider = new NIBS.Slider({ target: '#mySlider' });
+		var mySlider2 = new NIBS.Slider({target: '#mySlider2'});
+
+		window.addEventListener('slider.sliding', function (e) {
+
+			if (e.detail.that.selector === '#mySlider') {
+				mySlider2.setProgress(e.detail.that.info.progress);
+			}
+
+		}, false);
+
+	</script>
+</body>
+</html>

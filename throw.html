@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
+	<title>Throw</title>
+	<style>
+		body{
+			font-family:sans-serif;
+			margin: 10px;
+		}
+
+		#cont {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 150px;
+			background-color: yellow;
+			overflow: hidden;
+		}
+
+		#dragMe {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			background-color: orange;
+			cursor: move;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="cont">
+		<div id="dragMe">Drag me</div>
+	</div>
+	<div id="d1" style="position:absolute;background:red;left:10px; top:200px; width:50px; height:50px;"></div>
+
+	<script type="text/javascript" src="assets/libs/Drag/Drag.js"></script>
+	<script type="text/javascript">
+
+		var log = function (m) { if (console) console.log(m);};
+
+		var target = document.getElementById('dragMe'),
+			cont = document.getElementById('cont'),
+			t = document.getElementById('d1'),
+			force = 0,
+			friction = 0.08,
+			speedK = 15,
+			actions = {
+				dragDidStart: function (gesture) {
+					//Store the elemets position when the drag starts.
+					gesture.dragStartPos = {x:gesture.element.offsetLeft, y:gesture.element.offsetTop};
+					cont.ontouchstart = function(e){ e.preventDefault(); }; //Turn of scolling on container div off.
+				},
+				dragDidMove: function (gesture) { //Actions to run when teh dragging is happening.
+					var newPos = gesture.dragStartPos.x + gesture.translation.x;
+					var currPos = parseInt(target.style.left);
+					if (currPos) {
+						if (currPos - newPos) {
+							var tmp = currPos - newPos;
+							t.style.left = (parseInt(t.style.left) + (tmp * -1)) + 'px';
+						}
+						//t.style.left = xPos + force + 'px';
+					}
+					target.style.left = newPos + "px";
+				},
+				dragDidStop: function (gesture) {
+					var s = gesture.element.offsetLeft - gesture.dragStartPos.x;
+					var t = gesture.mouseUpEndTime - gesture.mousedownStartTime;
+					var v = (s / t);
+					cont.ontouchstart = function(e){ }; //Turn of scolling on container div on.
+					force = v * speedK;
+					target.style.left = 0;
+				}
+			},
+			drag = new NIBS.Drag(target, actions);
+
+		cont.style.msTouchAction = 'none'; //Make the container not scroll on Win mobile.
+
+		function loop() {
+			requestAnimationFrame(loop);
+			if (force > 0.1 || force < -0.1) {
+				var xPos = parseInt(t.style.left);
+				t.style.left = xPos + force + 'px';
+			}
+			force =  force * (1 - friction);
+		}
+		loop();
+	</script>
+</body>
+</html>

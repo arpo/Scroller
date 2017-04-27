@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
+	<title>Continuous Swipe</title>
+	<style>
+		body{
+			font-family:sans-serif;
+			margin: 0px;
+		}
+
+		#cont {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			background-color: #ccc;
+			overflow: hidden;
+			display: none;
+		}
+
+
+		.megaSlide {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			cursor: move;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+
+		.navBtn {
+			position: absolute;
+			top: 50%;
+			width: 10%;
+			height: 50px;
+			/*background-color: rgba(255, 255, 0, 0.3);*/
+			cursor: pointer;
+			margin-top: -50px;
+		}
+		.navBtn.prev {
+			left: 0;
+		}
+		.navBtn.next {
+			right: 0;
+		}
+
+		.navBtn:before {
+			content: "\2190";
+			left: 20%;
+			font-size: 50px;
+			top: 45%;
+			position: absolute;
+			color: #fff;
+			font-weight: bold;
+			text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+		}
+		.navBtn.next:before {
+			left: auto;
+			right: 20%;
+			content: "\2192";
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="cont">
+		<div class="megaSlide" style="background-image: url(assets/images/slides/785.jpg);"></div>
+		<div class="megaSlide" style="background-image: url(assets/images/slides/821.jpg);"></div>
+		<div class="megaSlide" style="background-image: url(assets/images/slides/883.jpg);"></div>
+		<div class="megaSlide" style="background-image: url(assets/images/slides/903.jpg);"></div>
+		<div class="megaSlide" style="background-image: url(assets/images/slides/1011.jpg);"></div>
+		<div class="megaSlide" style="background-image: url(assets/images/slides/1051.jpg);"></div>
+		<div class="megaSlide" style="background-image: url(assets/images/slides/1083.jpg);"></div>
+
+		<div class="navBtn prev"></div>
+		<div class="navBtn next"></div>
+	</div>
+
+	<script type="text/javascript" src="assets/libs/Drag/Drag.js"></script>
+	<script type="text/javascript" src="assets/libs/Drag/megaSwipe.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+
+				var options,
+					$cont,
+					mega;
+
+				/* 
+				To add callback, add them to options
+				options = {
+					slideEnter: function () {},
+					didDrag: function () {}
+				};
+				*/
+				options = {};
+				$cont = $('#cont');
+				mega = NIBS.megaSwipe.setup($cont, options);
+				
+				$(window).resize(function () {
+					mega.update();
+				});
+
+				$('.navBtn.prev').on('click', function (e) {
+					e.preventDefault();
+					mega.prev();
+				});
+
+				$('.navBtn.next').on('click', function (e) {
+					e.preventDefault();
+					mega.next();
+				});
+
+				//Next slide preview
+				// $('.navBtn.prev').hover(function() {
+				// 	mega.tween(1 - ($(this).width() / $cont.width()));
+				// }, function() {
+				// 	mega.tween(1);
+				// });
+
+				// $('.navBtn.next').hover(function() {
+				// 	mega.tween(1 + ($(this).width() / $cont.width()));
+				// }, function() {
+				// 	mega.tween(1);
+				// });
+
+			});
+
+		</script>
+
+</body>
+</html>

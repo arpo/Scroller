@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Scroller as a custom scroller</title>
+	<link rel="stylesheet" href="assets/css/scroller.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
+	<style type="text/css">
+		body {
+			overflow: hidden;
+		}
+
+		.bigH {
+            width: 2300px;
+            height: 100%;
+            float: left;
+            background-color: red;
+        }
+
+	</style>
+</head>
+<body>
+
+	<div id="main">
+
+		<div class="nibs-scroller">
+			<div class="nibs-innerScroll">
+				<div class="bigH">
+					<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+					<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+					<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+					<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="assets/libs/Scroller.js"></script>
+	<script type="text/javascript" src="assets/libs/scrollerUtils.js"></script>
+	<script type="text/javascript">
+
+		var log = function (m) { if (console) console.log(m);};
+		var scroller, delegate;
+
+		$(document).ready(function() {
+
+			delegate = {
+		        onScrollStart: function (scroller) {},
+		        onDragEnd: function (scroller) {},
+		        scrollerDidScroll: function (scroller) {}
+		    };
+
+			//Set it up
+			scroller = new NIBS.Scroller($('.nibs-scroller'), delegate);
+			scroller.setContentSize(2300, 0);
+			scroller.layout();
+			scroller.setContentOffset(100, 0, 1000);
+
+		});
+
+	</script>
+</body>
+</html>

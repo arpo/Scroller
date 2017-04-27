@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Scroller as Swipe</title>
+	<link rel="stylesheet" href="assets/css/scroller.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+	<div id="main">
+		<div data-adapt="height" class="nibs-swipe swipe1" tabindex="0">
+			<ul class="nibs-swipe-pages">
+				<li data-label="Tab 1" style="background-image:url('assets/images/slides/785.jpg');"></li>
+				<li data-label="Tab 2" style="background-image:url('assets/images/slides/821.jpg');">2</li>
+				<li data-label="Tab 3" style="background-image:url('assets/images/slides/883.jpg');">3</li>
+				<li data-label="Tab 4" style="background-image:url('assets/images/slides/903.jpg');">4</li>
+			</ul>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="https://cdn.rawgit.com/arpo/trace.js/master/trace.min.js"></script>
+	<script type="text/javascript" src="assets/libs/Scroller.js"></script>
+	<script type="text/javascript" src="assets/libs/scrollerUtils.js"></script>
+	<script type="text/javascript">
+
+		var swipe;
+
+		function callback (e, index, slide) {
+			console.log('Entered slide ' + index);
+		}
+
+		function _onScoll(scroller) {}
+
+		$(document).ready(function() {
+
+			swipe = NIBS.scrollerUtils.setupSwipeNav($('.swipe1'), callback, {menu: false, arrows:false, pagination: false, onScoll: _onScoll}); //This options is the default. Can be omitted.
+
+			//swipe.autoplay(); //You can set the time like this: swipe.autoplay(1500); default is 4000 ms. That is transition and wait time total.
+
+			//Turn off
+			//swipe.off();
+			
+			//Turn on
+			//swipe.on();
+
+			//swipe.speed = 1000; //To change swipe time
+
+			//If menu is false you can remove data-label from the list element.
+			//Callback can be omitted too if not needed
+
+			//Swipe to next
+			//swipe.next();
+
+			//Swipe to previous
+			//swipe.prev();
+
+			//Swipe to a specific section like this
+			//swipe.slide(1);
+		});
+	</script>
+</body>
+</html>

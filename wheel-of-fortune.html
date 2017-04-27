@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
+	<title>Wheel of fortune</title>
+	<style>
+		body{
+			font-family:sans-serif;
+			margin: 10px;
+			background-color: #000;
+			color: #fff;
+		}
+
+		#spinCont {
+			position: absolute;
+			left: 10px;
+			top: 100px;
+		}
+
+		#swipeCont {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 1110px;
+			height: 250px;
+			background-color: transparent;
+			overflow: hidden;
+		}
+
+		#dragMe {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			cursor: move;
+		}
+
+		#wofCont {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 1110px;
+			height: 250px;
+			overflow: hidden;
+		}
+		#wof {
+			position: absolute;
+			left: -150px;
+			top: -960px;
+			width: 1400px;
+			height: 1400px;
+			background-image: url(assets/images/wof/wheel_of_fortune.svg);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+
+  	<div id="spinCont">
+		<div id="wofCont">
+			<div id="wof"></div>
+		</div>
+		<div id="swipeCont">
+			<div id="dragMe"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="assets/libs/Drag/Drag.js"></script>
+	<script type="text/javascript">
+
+		var log = function (m) { if (console) console.log(m);};
+
+		var target = document.getElementById('dragMe'),
+			cont = document.getElementById('swipeCont'),
+			t = document.getElementById('wof'),
+			force = 0,
+			friction = 0.05,
+			speedK = 50,
+			wofRot = 0,
+			actions = {
+				dragDidStart: function (gesture) {
+					//Store the elemets position when the drag starts.
+					gesture.dragStartPos = {x:gesture.element.offsetLeft, y:gesture.element.offsetTop};
+					cont.ontouchstart = function(e){ e.preventDefault(); }; //Turn of scolling on container div off.
+				},
+				dragDidMove: function (gesture) { //Actions to run when teh dragging is happening.
+					var newPos = gesture.dragStartPos.x + gesture.translation.x;
+					var currPos = parseInt(target.style.left);
+					if (currPos) {
+						if (currPos - newPos) {
+							var tmp = currPos - newPos;
+							//t.style.webkitTransform = (wofRot + (tmp * -1)) + 'px';
+							//t.style.webkitTransform = 'rotate(' + (wofRot + (tmp * -1)) + 'deg)';
+						}
+					}
+					target.style.left = newPos + "px";
+				},
+				dragDidStop: function (gesture) {
+					var s = gesture.element.offsetLeft - gesture.dragStartPos.x;
+					var t = gesture.mouseUpEndTime - gesture.mousedownStartTime;
+					var v = (s / t);
+					cont.ontouchstart = function(e){ }; //Turn of scolling on container div on.
+					force = v * speedK;
+					target.style.left = 0;
+				}
+			},
+			drag = new NIBS.Drag(target, actions);
+
+		cont.style.msTouchAction = 'none'; //Make the container not scroll on Win mobile.
+		var newDeg;
+		function loop() {
+			requestAnimationFrame(loop);
+			if (force > 0.1 || force < -0.1) {
+				newDeg = (wofRot + force);
+				t.style.webkitTransform = 'rotate(' + newDeg + 'deg)';
+			}
+			force =  force * (1 - friction);
+		}
+		loop();
+	</script>
+</body>
+</html>

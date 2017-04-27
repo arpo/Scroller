@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Scroller as a custom scroller</title>
+	<link rel="stylesheet" href="assets/css/scroller.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
+	<style type="text/css">
+	body {
+		overflow: hidden;
+	}
+	</style>
+</head>
+<body>
+
+	<div id="main">
+
+		<div class="nibs-scroller">
+			<div class="nibs-innerScroll">
+				<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+				<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+				<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+				<p>Nibs is described as happy and joyful. He is known for having a sophisticated charm and as the most active and the bravest of the Lost Boys. Nibs wear a rabbit costume and don't talk much. When he grows up, he starts working in an office</p>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="assets/libs/Scroller.js"></script>
+	<script type="text/javascript" src="assets/libs/scrollerUtils.js"></script>
+	<script type="text/javascript">
+
+		var log = function (m) { if (console) console.log(m);};
+		var scroller, $win;;
+
+		$(document).ready(function() {
+			$win = $(window);
+
+			//Set it up
+			scroller = new NIBS.Scroller($('.nibs-scroller'));
+			scroller.setTrackbarVisible(true); //Show scrollbar
+			//scroller.paging = true;  //Make it snap tp pages.
+
+			//Add content
+			//$('.nibs-innerScroll').append('<p>ADDED<p><p>-<p>');
+			//Refresh it
+			//scroller.refresh(10); //10 is extra space added at the bottom.
+
+			//Make it responsive
+			/*function resizeScr() {
+				scroller.resize($win.width() - 20, $win.height() - 20, 10);
+			}
+			$win.resize(resizeScr);
+
+			//Make it fill up screen
+			resizeScr();*/
+
+		});
+
+	</script>
+</body>
+</html>

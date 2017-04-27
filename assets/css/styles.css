@@ -1,0 +1,12 @@
+body{
+	font-family:sans-serif;
+}
+
+#main {
+	max-width: 1385px;
+}	
+
+.swipe1 {
+	width: 100%;
+	height: 418px;
+}

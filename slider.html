@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
+	<title>Slide</title>
+	<style>
+
+		html {
+			height: 100%;
+		}
+
+		body {
+			font-family:sans-serif;
+			margin: 0;
+			height: 100%;
+		}
+
+		#mySlider {
+			width: 100px;
+			height: 100%;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="mySlider"></div>
+
+	<script src="https://cdn.rawgit.com/arpo/trace.js/master/trace.min.js"></script>
+	<script type="text/javascript" src="assets/libs/Drag/Drag.js"></script>
+	<script type="text/javascript" src="assets/libs/Drag/Slider.js"></script>
+	<script type="text/javascript">
+
+		var mySlider = new NIBS.Slider({ 
+			target: '#mySlider', 
+			dir: 'v',
+			handleWidth: 50,
+			snap: 0.1 // 0.1 = every 10%
+		});
+
+		window.addEventListener('slider.sliding', function (e) {
+			trace('pr', e.detail.that.info.progress);
+		}, false);
+
+	</script>
+</body>
+</html>
+
+
